@@ -48,8 +48,8 @@
                 <a href="#">Hamburgers</a>
             </div>
         </div>
-        <div class="col-6">
-            2 of 2
+        <div class="col-6" id="images" style="background-color: black;">
+
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -62,6 +62,38 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
     <script src="./assets/javascript/javascript.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        window.onload = function () {
+
+            // Storing our giphy API URL for a random food image
+            var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&tag=food";
+
+            // Perfoming an AJAX GET request to our queryURL
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            })
+
+                // After the data from the AJAX request comes back
+                .then(function (response) {
+
+                    // Saving the image_original_url property
+                    var imageUrl = response.data.image_original_url;
+
+                    // Creating and storing an image tag
+                    var catImage = $("<img>");
+
+                    // Setting the catImage src attribute to imageUrl
+                    catImage.attr("src", imageUrl);
+                    catImage.attr("alt", "cat image");
+
+                    // Prepending the catImage to the images div
+                    $("#images").prepend(catImage);
+                });
+        };
+    </script>
 </body>
 
 </html>
