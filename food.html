@@ -37,8 +37,8 @@
     <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" href="#">FOOD</a>
     </nav>
-    <div class="row">
-        <div class="col-3">
+    <div class="row" style="height: 50rem">
+        <div class="col-md-3" style="background: white">
             <div class="vertical-menu">
                 <a href="#">Italian</a>
                 <a href="#">BBQ</a>
@@ -48,7 +48,7 @@
                 <a href="#">Hamburgers</a>
             </div>
         </div>
-        <div class="col-6" id="images" style="background-color: black;">
+        <div class="col-md-9 row justify-content-center" id="images" style="background-color: black;">
 
         </div>
     </div>
@@ -68,7 +68,7 @@
         window.onload = function () {
 
             // Storing our giphy API URL for a random food image
-            var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&tag=food";
+            var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&tag=food&rating=G";
 
             // Perfoming an AJAX GET request to our queryURL
             $.ajax({
@@ -88,6 +88,7 @@
                     // Setting the catImage src attribute to imageUrl
                     catImage.attr("src", imageUrl);
                     catImage.attr("alt", "cat image");
+                    catImage.addClass("img-fluid");
 
                     // Prepending the catImage to the images div
                     $("#images").prepend(catImage);

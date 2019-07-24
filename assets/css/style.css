@@ -47,7 +47,7 @@
     background-color: #eee; /* Grey background color */
     color: black; /* Black text color */
     display: block; /* Make the links appear below each other */
-    padding: 12px; /* Add some padding */
+    padding: 0.75rem; /* Add some padding */
     text-decoration: none; /* Remove underline from links */
   }
   
