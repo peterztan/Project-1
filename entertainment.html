@@ -12,52 +12,41 @@
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript">
 
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">About Us</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="why-peta.html">Why PETA?</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="about-us.html">About Our Team</a>
-                    </li>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">About Us</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="why-peta.html">Why PETA?</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="about-us.html">About Our Team</a>
+                </li>
 
-                </ul>
-            </div>
-        </nav>
+            </ul>
+        </div>
+    </nav>
+    <nav class="navbar navbar-light bg-light" style="text-align: center;">
+        <a class="navbar-brand" href="#">ENTERTAINMENT (click here to view locations)</a>
+    </nav>
+    <div class="row" style="height: 50rem">
 
-
-            <div class="row">
-                <div class="col-3">
-                    <div class="vertical-menu">
-                        <a href="#" class="active">Sports</a>
-                        <a href="#">Movie Theaters</a>
-                        <a href="#">Parks and Trails</a>
-                        <a href="#">Concert Venues</a>
-                        <a href="#">Museums</a>
-                        <a href="#">Shopping</a>
-                    </div>
-                </div>
-                <div class="col-6" id="images">
-                    2 of 2
-
-            </div>
-
-
-                <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-                    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-                    crossorigin="anonymous"></script>
+        <div class="col-md-12 row justify-content-center" style="background-color: black;">
+            <div style="margin: auto;" id="images"></div>
+        </div>
+        <p>&nbsp;</p>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
@@ -65,6 +54,39 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
     <script src="./assets/javascript/javascript.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        window.onload = function () {
+
+            // Storing our giphy API URL for a random food image
+            var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&tag=entertainment&rating=G";
+
+            // Perfoming an AJAX GET request to our queryURL
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            })
+
+                // After the data from the AJAX request comes back
+                .then(function (response) {
+
+                    // Saving the image_original_url property
+                    var imageUrl = response.data.image_original_url;
+
+                    // Creating and storing an image tag
+                    var leisureImage = $("<img>");
+
+                    // Setting the catImage src attribute to imageUrl
+                    leisureImage.attr("src", imageUrl);
+                    leisureImage.attr("alt", "cat image");
+                    leisureImage.addClass("img-fluid");
+
+                    // Prepending the catImage to the images div
+                    $("#images").prepend(leisureImage);
+                });
+        };
+    </script>
 </body>
 
 </html>
