@@ -34,15 +34,21 @@
     <nav class="navbar navbar-light bg-light" style="text-align: center;">
         <a class="navbar-brand" id="entertainMap" href="#">ENTERTAINMENT (click here to view locations)</a>
     </nav>
-    <div class="row" style="height: 50rem">
 
-        <div class="col-md-12 row justify-content-center" style="background-color: black;">
-            <div style="margin: auto;" id="images"></div>
-            <iframe id="mapFrame" name="W3_Org" src="http://www.w3.org" width="100%" height="700px"
-                scrolling="no"></iframe>
+    <nav class="navbar navbar-light bg-light row justify-content-center">
+        <a class="navbar-brand" id="entertainMap" href="#">View Map</a>
+    </nav>
+    <div class="card-deck row justify-content-center">
+        <div id="images"></div>
+        <div id="right-panel" class="card-body text-center col-md-2 shadow-lg">
+            <h3 class="card-header bg-light">Results</h3>
+            <ul id="places" class="list-group list-group-flush btn-group-vertical btn-group-lg"></ul>
+            <button type="button" id="more" class="btn btn-light btn-block">More results</button>
         </div>
-        <p>&nbsp;</p>
+        <div id="map" class="card-light col-md-10 shadow-lg"></div>
     </div>
+    
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -87,16 +93,162 @@
                 });
         };
 
-        $("#mapFrame").hide()
+        $("#right-panel").hide();
+        $("#map").hide();
 
-        $("#entertainMap").click(function () {
-            $("#images").hide()
-            $("#mapFrame").show()
-
-
-
+        $("#entertainMap").on("click", function () {
+            $("#images").hide();
+            $("#right-panel").show();
+            $("#map").show();
         });
 
+        var map;
+        var markers = [
+            {
+                coords: { lat: 39.0900, lng: -94.5851 },
+                iconImage: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+                content: 'Up Down KC '
+            },
+            {
+                coords: { lat: 39.089711, lng: -94.584027 },
+                content: 'Manifesto'
+            },
+            {
+                coords: { lat: 39.102558, lng: -94.599090 },
+                content: 'The Ship'
+            },
+            {
+                coords: { lat: 39.097353, lng: -94.583184 },
+                content: ' Power and Light District '
+            },
+            {
+                coords: { lat: 39.093531, lng: -94.583383 },
+                content: ' Toms Town distillery '
+            },
+            {
+                coords: { lat: 39.099701, lng: -94.579931 },
+                content: ' ZooBar '
+            },
+
+
+        ];
+
+
+
+        function initMap() {
+            // Create the map.
+            var kansasCity = new google.maps.LatLng(39.10345, -94.58311);
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: kansasCity,
+                zoom: 14,
+            });
+
+            // Create the places service.
+            var service = new google.maps.places.PlacesService(map);
+            var getNextPage = null;
+            var moreButton = document.getElementById('more');
+            moreButton.onclick = function () {
+                moreButton.disabled = true;
+                if (getNextPage) getNextPage();
+            };
+
+            // Perform a nearby search.
+            service.nearbySearch(
+                { location: kansasCity, radius: 500, type: ['store'] },
+                function (results, status, pagination) {
+                    if (status !== 'OK') return;
+
+                    //makes the weird image markers
+                    createMarkers(results);
+                    moreButton.disabled = !pagination.hasNextPage;
+                    getNextPage = pagination.hasNextPage && function () {
+                        pagination.nextPage();
+                    };
+                });
+        }
+
+        function createMarkers(places) {
+            var bounds = new google.maps.LatLngBounds();
+            // var placesList = document.getElementById('places');
+
+            for (var i = 0, place; place = places[i]; i++) {
+                // console.log(place.types);s
+
+                if (!place.types.includes('store')) { continue }
+
+                var image = {
+                    url: place.icon,
+                    size: new google.maps.Size(71, 71),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(17, 34),
+                    scaledSize: new google.maps.Size(25, 25)
+                };
+
+                var marker = new google.maps.Marker({
+                    map: map,
+                    icon: image,
+                    title: place.name,
+                    position: place.geometry.location
+                });
+
+                // var li = document.createElement('li');
+                // li.textContent = place.name;
+                // li.classList.add('place-item')
+                // li.setAttribute('data-lat', place.geometry.location.lat())
+                // li.setAttribute('data-lng', place.geometry.location.lng())
+
+                // placesList.appendChild(li);
+
+                bounds.extend(place.geometry.location);
+            }
+            map.fitBounds(bounds);
+
+
+            // attachSecretMessage(marker, secretMessages[i]);
+
+            function attachSecretMessage(marker, secretMessage) {
+                var infowindow = new google.maps.InfoWindow({
+                    content: secretMessage
+                });
+
+                marker.addListener('click', function () {
+                    infowindow.open(marker.get('map'), marker);
+                });
+            }
+        }
+
+
+        function createPlaceList() {
+            var placesList = document.getElementById('places');
+            placesList.classList.add('mapList');
+            for (let itm of markers) {
+                var li = document.createElement('li');
+                li.textContent = itm.content;
+                li.classList.add('place-item');
+                li.classList.add('list-group-item');
+                li.classList.add('btn');
+                li.classList.add('btn-light');
+                li.classList.add('btn-lg');
+                li.setAttribute('data-lat', itm.coords.lat);
+                li.setAttribute('data-lng', itm.coords.lng);
+                placesList.appendChild(li);
+            }
+        }
+
+        createPlaceList()
+
+        document.getElementById('places').addEventListener('click', function (evt) {
+            if (!evt.target.classList.contains('place-item')) { return }
+
+            var lat = evt.target.dataset.lat;
+            var lng = evt.target.dataset.lng;
+            var latLng = new google.maps.LatLng(parseFloat(lat), parseFloat(lng))
+
+            //add marker
+
+            map.setCenter(latLng)
+            map.setZoom(19)
+        })
 
     </script>
 </body>
