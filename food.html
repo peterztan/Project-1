@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Project 1</title>
+    <title>Food</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/style.css">
@@ -13,6 +13,7 @@
 
 <body>
 
+    <!-- Nav bar -->
     <nav class="navbar navbar-expand-lg navbar-light">
         <a class="navbar-brand" href="#">About Us</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -31,25 +32,25 @@
             </ul>
         </div>
     </nav>
-    <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="#">FOOD</a>
-    </nav>
-    <div class="row" style="height: 50rem">
-        <div class="col-md-3" style="background: white">
-            <div class="vertical-menu">
-                <a href="#">Italian</a>
-                <a href="#">BBQ</a>
-                <a href="#">Sushi</a>
-                <a href="#">Thai</a>
-                <a href="#">Mexican</a>
-                <a href="#">Hamburgers</a>
-            </div>
-        </div>
-        <div class="col-md-9 row justify-content-center" id="images" style="background-color: black;">
 
+    <!-- button for map -->
+    <nav class="navbar navbar-light bg-light" style="text-align: center;">
+        <a class="navbar-brand" id="entertainMap" href="#">FOOD (click here to view locations)</a>
+    </nav>
+
+    <!-- main content area-->
+    <div class="card-deck row justify-content-center">
+        <div id="images"></div>
+        <div id="right-panel" class="card-body text-center col-md-2 shadow-lg">
+            <h3 class="card-header bg-light">Results</h3>
+            <ul id="places" class="list-group list-group-flush btn-group-vertical btn-group-lg"></ul>
+            <button type="button" id="more" class="btn btn-light btn-block">More results</button>
         </div>
-        <p>&nbsp;</p>
+        <div id="map" class="card-light col-md-10 shadow-lg"></div>
     </div>
+
+
+    <!-- links -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -63,9 +64,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
 
+        //loads the gif to page
         window.onload = function () {
 
-            // Storing our giphy API URL for a random food image
+
+            // Storing our giphy API URL for a random  image
             var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&tag=food&rating=G";
 
             // Perfoming an AJAX GET request to our queryURL
@@ -81,20 +84,32 @@
                     var imageUrl = response.data.image_original_url;
 
                     // Creating and storing an image tag
-                    var catImage = $("<img>");
+                    var leisureImage = $("<img>");
 
                     // Setting the catImage src attribute to imageUrl
-                    catImage.attr("src", imageUrl);
-                    catImage.attr("alt", "cat image");
-                    catImage.addClass("img-fluid");
+                    leisureImage.attr("src", imageUrl);
+                    leisureImage.attr("alt", "cat image");
+                    leisureImage.addClass("img-fluid");
 
                     // Prepending the catImage to the images div
-                    $("#images").prepend(catImage);
+                    $("#images").prepend(leisureImage);
                 });
         };
 
+        //hide the gifs and swap to map
+        $("#right-panel").hide();
+        $("#map").hide();
+
+        $("#entertainMap").on("click", function () {
+            $("#images").hide();
+            $("#right-panel").show();
+            $("#map").show();
+        });
+
+        //list of places 
         var map;
         var markers = [
+
             {
                 coords: { lat: 39.057656, lng: -94.598251 },
                 iconImage: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
@@ -124,8 +139,10 @@
 
         ];
 
+
+        // Create the map.
         function initMap() {
-            // Create the map.
+
             var kansasCity = new google.maps.LatLng(39.10345, -94.58311);
             map = new google.maps.Map(document.getElementById('map'), {
                 center: kansasCity,
@@ -240,6 +257,12 @@
         })
 
     </script>
+
+    <!-- google api link -->
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNlchoGwcnpILxNOVmTxZQ8eYWZVzTuDE&libraries=places&callback=initMap"
+        async defer></script>
+
 </body>
 
 </html>
