@@ -66,3 +66,16 @@ body {
   text-overflow: ellipsis;
   white-space: wrap;
 }
+
+/* giphy size  */
+.img-fluid {
+  height: 700px;
+  width: 700px;
+}
+
+#main-title {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 130px;
+  padding-bottom: 35px;
+
+}
