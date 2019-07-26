@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Project 1</title>
+    <title>Entertainment</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/style.css">
@@ -13,6 +13,7 @@
 
 <body>
 
+    <!-- Nav bar -->
     <nav class="navbar navbar-expand-lg navbar-light">
         <a class="navbar-brand" href="#">About Us</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -31,13 +32,13 @@
             </ul>
         </div>
     </nav>
+
+    <!-- button for map -->
     <nav class="navbar navbar-light bg-light" style="text-align: center;">
         <a class="navbar-brand" id="entertainMap" href="#">ENTERTAINMENT (click here to view locations)</a>
     </nav>
 
-    <nav class="navbar navbar-light bg-light row justify-content-center">
-        <a class="navbar-brand" id="entertainMap" href="#">View Map</a>
-    </nav>
+    <!-- main content area-->
     <div class="card-deck row justify-content-center">
         <div id="images"></div>
         <div id="right-panel" class="card-body text-center col-md-2 shadow-lg">
@@ -47,8 +48,9 @@
         </div>
         <div id="map" class="card-light col-md-10 shadow-lg"></div>
     </div>
-    
 
+
+    <!-- links -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -62,6 +64,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
 
+        //loads the gif to page
         window.onload = function () {
 
 
@@ -93,6 +96,7 @@
                 });
         };
 
+        //hide the gifs and swap to map
         $("#right-panel").hide();
         $("#map").hide();
 
@@ -102,41 +106,43 @@
             $("#map").show();
         });
 
+        //list of places 
         var map;
         var markers = [
+
             {
-                coords: { lat: 39.0900, lng: -94.5851 },
+                coords: { lat: 39.097467, lng: -94.583471 },
                 iconImage: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
-                content: 'Up Down KC '
+                content: 'Alamo Drafthouse '
             },
             {
-                coords: { lat: 39.089711, lng: -94.584027 },
-                content: 'Manifesto'
+                coords: { lat: 39.045168, lng: -94.580891 },
+                content: 'Nelson-Atkins Museum of Art'
             },
             {
-                coords: { lat: 39.102558, lng: -94.599090 },
-                content: 'The Ship'
+                coords: { lat: 39.081141, lng: -94.585830 },
+                content: 'WWI Museum and Memorial'
             },
             {
-                coords: { lat: 39.097353, lng: -94.583184 },
-                content: ' Power and Light District '
+                coords: { lat: 39.084455, lng: -94.585233 },
+                content: ' Union Station '
             },
             {
-                coords: { lat: 39.093531, lng: -94.583383 },
-                content: ' Toms Town distillery '
+                coords: { lat: 39.109258, lng: -94.582196 },
+                content: ' River Market '
             },
             {
-                coords: { lat: 39.099701, lng: -94.579931 },
-                content: ' ZooBar '
+                coords: { lat: 39.031012, lng: -94.581983 },
+                content: ' Toy an Miniature Museum '
             },
 
 
         ];
 
 
-
+        // Create the map.
         function initMap() {
-            // Create the map.
+
             var kansasCity = new google.maps.LatLng(39.10345, -94.58311);
             map = new google.maps.Map(document.getElementById('map'), {
                 center: kansasCity,
@@ -251,6 +257,12 @@
         })
 
     </script>
+
+    <!-- google api link -->
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNlchoGwcnpILxNOVmTxZQ8eYWZVzTuDE&libraries=places&callback=initMap"
+        async defer></script>
+
 </body>
 
 </html>
