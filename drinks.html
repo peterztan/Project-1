@@ -35,15 +35,16 @@
         </div>
     </nav>
 
-    <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="#">DRINKS</a>
+    <nav class="navbar navbar-light bg-light row justify-content-center">
+        <a class="navbar-brand" href="#">View Map</a>
     </nav>
-
-    <div id="map"></div>
-    <div id="right-panel">
-        <h2>Results</h2>
-        <ul id="places"></ul>
-        <button id="more">More results</button>
+    <div class="card-deck row justify-content-center">
+        <div id="right-panel" class="card-body text-center col-md-2 shadow-lg">
+            <h3 class="card-header bg-light">Results</h3>
+            <ul id="places" class="list-group list-group-flush btn-group-vertical btn-group-lg"></ul>
+            <button type="button" id="more" class="btn btn-light btn-block">More results</button>
+        </div>
+        <div id="map" class="card-light col-md-10 shadow-lg"></div>
     </div>
 
     <script>
@@ -174,6 +175,10 @@
                 var li = document.createElement('li');
                 li.textContent = itm.content;
                 li.classList.add('place-item');
+                li.classList.add('list-group-item');
+                li.classList.add('btn');
+                li.classList.add('btn-light');
+                li.classList.add('btn-lg');
                 li.setAttribute('data-lat', itm.coords.lat);
                 li.setAttribute('data-lng', itm.coords.lng);
                 placesList.appendChild(li);
