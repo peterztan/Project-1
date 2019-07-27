@@ -65,17 +65,22 @@ body {
 .place-item {
   text-overflow: ellipsis;
   white-space: wrap;
+  overflow: hidden;
 }
 
 /* giphy size  */
 .img-fluid {
-  height: 700px;
-  width: 700px;
+  height: 43.75rem;
+  width: 43.75rem;
 }
 
 #main-title {
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-size: 130px;
-  padding-bottom: 35px;
+  padding-bottom: 0.13671875rem;
 
+}
+
+.nav-item, #images {
+  display: none;
 }
