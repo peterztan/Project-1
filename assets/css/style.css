@@ -81,6 +81,6 @@ body {
 
 }
 
-.nav-item, #images {
+.dropIn, #images {
   display: none;
 }

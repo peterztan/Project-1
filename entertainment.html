@@ -35,14 +35,14 @@
 
     <!-- button for map -->
     <ul class="nav justify-content-center nav-tabs">
-        <li class="nav-item">
+        <li class="nav-item dropIn">
             <a class="navbar-brand nav-link active" id="entertainMap" href="#">ENTERTAINMENT (click here to view
                 locations)</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item dropIn">
             <a class="nav-link text-dark" href="food.html">FOOD</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item dropIn">
             <a class="nav-link text-dark" href="drinks.html">DRINKS</a>
         </li>
     </ul>
@@ -75,7 +75,7 @@
 
         //loads the gif to page
         window.onload = function () {
-            $('.nav-item').slideDown(1000);
+            $('.dropIn').slideDown(1000);
             $('#images').fadeIn(3000);
 
             // Storing our giphy API URL for a random food image
