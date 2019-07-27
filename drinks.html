@@ -15,7 +15,7 @@
 
     <!-- Nav bar -->
     <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="#">About Us</a>
+        <a class="navbar-brand" href="#">APP.e</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -25,7 +25,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="about-us.html">About Our Team</a>
                 </li>
 
@@ -34,9 +34,17 @@
     </nav>
 
     <!-- button for map -->
-    <nav class="navbar navbar-light bg-light" style="text-align: center;">
-        <a class="navbar-brand" id="entertainMap" href="#">DRINKS (click here to view locations)</a>
-    </nav>
+        <ul class="nav justify-content-center nav-tabs">
+            <li class="nav-item dropIn">
+                <a class="navbar-brand nav-link active" id="drinkMap" href="#">DRINKS (click here to view locations)</a>
+            </li>
+            <li class="nav-item dropIn">
+                <a class="nav-link text-dark" href="entertainment.html">ENTERTAINMENT</a>
+            </li>
+            <li class="nav-item dropIn">
+                <a class="nav-link text-dark" href="food.html">FOOD</a>
+            </li>
+        </ul>
 
     <!-- main content area-->
     <div class="card-deck row justify-content-center">
@@ -48,7 +56,6 @@
         </div>
         <div id="map" class="card-light col-md-10 shadow-lg"></div>
     </div>
-
 
     <!-- links -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -66,7 +73,8 @@
 
         //loads the gif to page
         window.onload = function () {
-
+            $('.dropIn').slideDown(1000);
+            $('#images').fadeIn(3000);
 
             // Storing our giphy API URL for a random food image
             var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&tag=alcohol&rating=G";
@@ -100,10 +108,10 @@
         $("#right-panel").hide();
         $("#map").hide();
 
-        $("#entertainMap").on("click", function () {
-            $("#images").hide();
-            $("#right-panel").show();
-            $("#map").show();
+        $("#drinkMap").on("click", function () {
+            $("#images").fadeOut(1000);
+            $("#right-panel").fadeIn(1000);
+            $("#map").fadeIn(1000);
         });
 
         //list of places 
@@ -160,7 +168,7 @@
 
             // Perform a nearby search.
             service.nearbySearch(
-                { location: kansasCity, radius: 500, type: ['store'] },
+                { location: kansasCity, radius: 50, type: ['store'] },
                 function (results, status, pagination) {
                     if (status !== 'OK') return;
 
