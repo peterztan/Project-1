@@ -10,10 +10,10 @@ body {
   background-attachment: fixed;
   background-size: 1800% 1800%;
 
-  -webkit-animation: rainbow 9s ease infinite;
-  -z-animation: rainbow 9s ease infinite;
-  -o-animation: rainbow 9s ease infinite;
-  animation: rainbow 9s ease infinite;
+  -webkit-animation: rainbow 59s ease infinite;
+  -z-animation: rainbow 59s ease infinite;
+  -o-animation: rainbow 59s ease infinite;
+  animation: rainbow 59s ease infinite;
 }
 
 .container {
